@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
@@ -12,12 +12,12 @@ def hello():
     name = request.args.get('name')
 
     if name is None:
-        text = 'Hello world!'
+        text = 'Hello, world!'
 
     else:
-        text = 'Hello ' + name + '!'
+        text = 'Hello, ' + name + '!'
 
-    return text
+    return jsonify({"message": text})
 
 # Start our server
 app.run(debug=True, port=8000)

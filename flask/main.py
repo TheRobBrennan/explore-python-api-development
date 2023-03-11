@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -8,7 +8,16 @@ def index():
 
 @app.route('/my-first-api')
 def hello():
-    return "Hello world!"
+
+    name = request.args.get('name')
+
+    if name is None:
+        text = 'Hello world!'
+
+    else:
+        text = 'Hello ' + name + '!'
+
+    return text
 
 # Start our server
 app.run(debug=True, port=8000)

@@ -110,3 +110,21 @@ drwxr-xr-x 2 root root 4096 Mar 11 23:49 images
 -rw-r--r-- 1 root root  944 Mar 11 23:49 requirements.txt
 root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi# 
 ```
+
+### Create a virtual environment on our Droplet
+
+```sh
+# Connect to our Droplet
+% ssh root@161.35.228.138
+
+# Navigate to the files we just copied over
+root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~# cd /root/fastapi/
+root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi#
+
+# Create a virtual environment in the /root/fastapi folder
+root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi# apt install python3-pip
+root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi# pip install virtualenv
+root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi# virtualenv venv
+root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi# source venv/bin/activate
+(venv) root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi# 
+```

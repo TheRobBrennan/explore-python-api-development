@@ -1,6 +1,6 @@
 # Welcome
 
-This project will explore getting started developing with [Python](https://www.python.org) as quickly as possible using [Visual Studio Code](https://code.visualstudio.com).
+This project was originally based off my example at [https://github.com/TheRobBrennan/explore-python](https://github.com/TheRobBrennan/explore-python). It will explore getting started developing with [Python](https://www.python.org) as quickly as possible using [Visual Studio Code](https://code.visualstudio.com).
 
 ## Local development
 
@@ -9,7 +9,6 @@ This project will explore getting started developing with [Python](https://www.p
 ```sh
 # Verify that you have Python installed on your machine
 % python3 --version
-Python 3.9.6
 
 # Create a new virtual environment for the project
 % python3 -m venv .venv
@@ -23,11 +22,11 @@ Python 3.9.6
 
 # Install Python packages in a virtual environment
 # EXAMPLE: Install simplejson - https://pypi.org/project/simplejson/
-# % pip install simplejson
+% pip install simplejson
 # ... continue to install packages as needed ...
 
 # When you are ready to generate a requirements.txt file
-# % pip freeze > requirements.txt
+% pip freeze > requirements.txt
 
 # What happens if you want to uninstall a package?
 

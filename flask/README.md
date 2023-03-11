@@ -20,13 +20,14 @@ Let's refer to the `How to create an API in Python with Flask` section in the bl
 % source /path/to/explore-python-api-development/flask/.venv/bin/activate
 (.venv) %
 
-# Make sure you are in the FastAPI directory
+# Make sure you are in the Flask directory
 (.venv) % cd flask
 
 # Install Python packages in a virtual environment
 (.venv) % pip install flask
 (.venv) % pip install flask-restful
 (.venv) % pip install pandas
+(.venv) % pip install matplotlib
 
 # Let's start our Flask server - Available at http://127.0.0.1:8000/
 (.venv) % python main.py

@@ -26,6 +26,7 @@ Let's refer to the `How to create an API in Python with Flask` section in the bl
 # Install Python packages in a virtual environment
 (.venv) % pip install flask
 (.venv) % pip install flask-restful
+(.venv) % pip install pandas
 
 # Let's start our Flask server - Available at http://127.0.0.1:8000/
 (.venv) % python main.py

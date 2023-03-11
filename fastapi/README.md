@@ -27,6 +27,7 @@ Let's refer to the `How to create an API in Python with FastAPI` section in the 
 (.venv) % pip install fastapi
 (.venv) % pip install uvicorn
 (.venv) % pip install pandas
+(.venv) % pip install matplotlib
 
 # Let's start our FastAPI server - Available at http://127.0.0.1:8000/
 (.venv) % uvicorn main:app --reload

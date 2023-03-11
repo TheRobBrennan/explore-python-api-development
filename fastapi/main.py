@@ -6,8 +6,25 @@ matplotlib.use('AGG')
 import matplotlib.pyplot as plt
 
 from fastapi import FastAPI, Response, BackgroundTasks
+from fastapi.middleware.cors import CORSMiddleware 
+import uvicorn 
 
 app = FastAPI()
+
+# To avoid any CORS problems when using the API, we will additionally integrate CORS Middleware
+origins = ['*']
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+) 
+
+# Our default route
+@app.get("/")
+async def root():
+    return {"message": "Hello from FastAPI"} 
 
 # Documentation for our FastAPI can be found at http://127.0.0.1:8000/docs
 # OpenAPI documentation for our FastAPI can be found at http://127.0.0.1:8000/redoc
@@ -51,3 +68,7 @@ def create_iris_image_buffer():
     plt.savefig(img_buf, format='png')
     plt.close(fig)
     return img_buf
+
+# For local development, our API should be available at http://localhost:8000
+if __name__ == "__main__":
+    uvicorn.run(app, host='0.0.0.0', port=8000)

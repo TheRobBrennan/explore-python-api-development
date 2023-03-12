@@ -128,3 +128,82 @@ root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi# virtualenv venv
 root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi# source venv/bin/activate
 (venv) root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi# 
 ```
+
+### Nginx Configuration
+
+I had to install Nginx on my Droplet by following the guide at [How To Install Nginx on Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-20-04):
+
+```sh
+# Install Nginx
+% sudo apt update
+% sudo apt install nginx
+
+# OPTIONAL: Check and see if the firewall is enabled and running
+% sudo ufw status
+Status: inactive
+
+# Enable the firewall
+% sudo ufw enable
+Command may disrupt existing ssh connections. Proceed with operation (y|n)? y
+Firewall is active and enabled on system startup
+
+# Adjust the firewall
+% sudo ufw app list
+Available applications:
+  Nginx Full
+  Nginx HTTP
+  Nginx HTTPS
+  OpenSSH
+
+# It is recommended that you enable the most restrictive profile that will still allow the traffic you’ve configured. Right now, we will only need to allow traffic on port 80.
+% sudo ufw allow 'Nginx HTTP'
+
+# Let's make sure we're allowing HTTP traffic in our firewall on port 80
+% sudo ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+Nginx HTTP                 ALLOW       Anywhere                  
+Nginx HTTP (v6)            ALLOW       Anywhere (v6)             
+
+```
+
+To serve the application over HTTP we have to make an Nginx config for our application. You can add any name to your app. Here I have specified as `fastapi-demo`:
+
+```sh
+(venv) root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi# sudo nano /etc/nginx/sites-available/fastapi-demo
+```
+
+Add the following lines to the file - replacing `server_name` with your IP address (`161.35.228.138` in my case)
+
+```
+server{
+       server_name 161.35.228.138; 
+       location / {
+           include proxy_params;
+           proxy_pass http://127.0.0.1:8000;
+       }
+}
+```
+
+Let's make sure our Nginx service is up and running:
+
+```sh
+% systemctl status nginx
+● nginx.service - A high performance web server and a reverse proxy server
+     Loaded: loaded (/lib/systemd/system/nginx.service; enabled; preset: enabled)
+     Active: active (running) since Sun 2023-03-12 00:04:09 UTC; 8min ago
+       Docs: man:nginx(8)
+    Process: 9266 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+    Process: 9267 ExecStart=/usr/sbin/nginx -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+   Main PID: 9351 (nginx)
+      Tasks: 2 (limit: 1116)
+     Memory: 5.2M
+        CPU: 37ms
+     CGroup: /system.slice/nginx.service
+             ├─9351 "nginx: master process /usr/sbin/nginx -g daemon on; master_process on;"
+             └─9354 "nginx: worker process"
+```
+
+Let's open a web browser to our IP address - `161.35.228.138` in this example - at [http://161.35.228.138](http://161.35.228.138).

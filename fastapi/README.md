@@ -350,3 +350,42 @@ For this example, I verified that my `plot-iris` endpoint correctly displays a s
 ![](./images/safari_plot-iris-endpoint.png)
 
 Whew! One thing to note is that this application is running but not being automatically restarted if it crashes. We will revisit that next.
+
+### Configure ASGI Server
+
+Now that our application is deployed and configured properly one last thing to do is to create a service for the Gunicorn server so that it is constantly running and it automatically begins when the server is rebooted. Systemd will be used to build the service.
+
+```sh
+% ssh root@161.35.228.138
+(venv) root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi# deactivate 
+root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi# sudo nano /etc/systemd/system/fastapi.service
+```
+
+Add the following lines to the new file:
+
+```
+[Unit]
+Description=Gunicorn instance to serve my FastAPI demo
+After=network.target
+
+[Service]
+User=<username>
+Group=www-data
+WorkingDirectory=/root/fastapi
+Environment="PATH=/root/fastapi/venv/bin"
+ExecStart=/root/fastapi/venv/bin/gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
+
+[Install]
+WantedBy=multi-user.target
+
+```
+
+After saving the file, let's start the new service:
+
+```sh
+root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi# sudo systemctl start fastapi.service
+```
+
+Success! I can browse to [http://161.35.228.138/plot-iris](http://161.35.228.138/plot-iris) and see the scatter plot:
+
+![](./images/safari_plot-iris-endpoint.png)

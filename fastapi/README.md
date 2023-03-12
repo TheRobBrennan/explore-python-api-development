@@ -6,6 +6,9 @@ Let's refer to the `How to create an API in Python with FastAPI` section in the 
 ### Install dependencies and run our project
 
 ```sh
+# Make sure you are in the FastAPI directory
+(.venv) % cd fastapi
+
 # Verify that you have Python installed on your machine
 % python3 --version
 
@@ -14,9 +17,6 @@ Let's refer to the `How to create an API in Python with FastAPI` section in the 
 
 # Select your new environment by using the Python: Select Interpreter command in VS Code
 #   - Enter the path: ./.venv/bin/python
-
-# Make sure you are in the FastAPI directory
-(.venv) % cd fastapi
 
 # Activate your virtual environment
 % source .venv/bin/activate

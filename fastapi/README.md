@@ -15,14 +15,22 @@ Let's refer to the `How to create an API in Python with FastAPI` section in the 
 # Select your new environment by using the Python: Select Interpreter command in VS Code
 #   - Enter the path: ./.venv/bin/python
 
-# Activate your virtual environment
-# % source /Users/rob/repos/explore-python-api-development/fastapi/.venv/bin/activate
-% source /path/to/explore-python-api-development/fastapi/.venv/bin/activate
-(.venv) %
-
 # Make sure you are in the FastAPI directory
 (.venv) % cd fastapi
 
+# Activate your virtual environment
+% source .venv/bin/activate
+(.venv) %
+
+# PREFERRED: Install the packages from requirements.txt
+(.venv) % pip install -r requirements.txt
+
+# Let's start our FastAPI server - Available at http://127.0.0.1:8000/
+(.venv) % uvicorn main:app --reload
+
+# -------------------------------------------------------------------------------------- #
+# REFERENCE DOCUMENTATION
+# -------------------------------------------------------------------------------------- #
 # Install Python packages in a virtual environment
 (.venv) % pip install fastapi
 (.venv) % pip install uvicorn
@@ -30,9 +38,7 @@ Let's refer to the `How to create an API in Python with FastAPI` section in the 
 (.venv) % pip install matplotlib
 (.venv) % pip install requests
 (.venv) % pip install gunicorn
-
-# Let's start our FastAPI server - Available at http://127.0.0.1:8000/
-(.venv) % uvicorn main:app --reload
+(.venv) % pip install requests
 
 # When you are ready to generate a requirements.txt file
 (.venv) % pip freeze > requirements.txt
@@ -45,8 +51,6 @@ Let's refer to the `How to create an API in Python with FastAPI` section in the 
 # Remove the dependency from requirements.txt if it exists
 # (.venv) % pip uninstall -r requirements.txt
 
-# Install the packages from requirements.txt
-(.venv) % pip install -r requirements.txt
 ```
 
 ## Digital Ocean

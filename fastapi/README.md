@@ -129,7 +129,7 @@ root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi# source venv/bin/activate
 (venv) root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi# 
 ```
 
-### Nginx Configuration
+### Nginx Installation
 
 I had to install Nginx on my Droplet by following the guide at [How To Install Nginx on Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-20-04):
 

@@ -127,6 +127,10 @@ root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi# pip install virtualenv
 root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi# virtualenv venv
 root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi# source venv/bin/activate
 (venv) root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi# 
+
+# Let's make sure we have our application dependencies installed
+(venv) root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi# pip install -r requirements.txt
+
 ```
 
 ### Nginx Installation
@@ -308,3 +312,41 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 # Restart Nginx for the changes to take effect
 % sudo systemctl restart nginx
 ```
+
+### Nginx Configuration
+To servee the application over HTTP we have to make an Nginx config for our application. You can add any name to your app. Here I have specified mine to be `fastapi`:
+
+```sh
+(venv) root@ubuntu-s-1vcpu-1gb-intel-sfo3-01:~/fastapi# sudo nano /etc/nginx/sites-available/fastapi
+```
+
+Be sure to replace `server_name` with the appropriate IP address:
+
+```sh
+server{
+       server_name 161.35.228.138; 
+       location / {
+           include proxy_params;
+           proxy_pass http://127.0.0.1:8000;
+       }
+}
+```
+
+Next, create a symbloc link to the config file in the `/etc/nginx/sites-enabled` directory and restart Nginx:
+
+```sh
+# Create a symbolic link to enable the site
+$ sudo ln -s /etc/nginx/sites-available/fastapi /etc/nginx/sites-enabled/
+
+# Restart Nginx
+$ sudo systemctl restart nginx.service
+
+# Start the uvicorn server and check if the application is working or not
+$ gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
+```
+
+For this example, I verified that my `plot-iris` endpoint correctly displays a scatter plot at [http://161.35.228.138/plot-iris](http://161.35.228.138/plot-iris):
+
+![](./images/safari_plot-iris-endpoint.png)
+
+Whew! One thing to note is that this application is running but not being automatically restarted if it crashes. We will revisit that next.

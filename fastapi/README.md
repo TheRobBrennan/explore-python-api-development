@@ -207,3 +207,29 @@ Let's make sure our Nginx service is up and running:
 ```
 
 Let's open a web browser to our IP address - `161.35.228.138` in this example - at [http://161.35.228.138](http://161.35.228.138).
+
+#### Managing the Nginx Process
+
+Let's review some basic management commands:
+
+```sh
+# Stop the web server
+% sudo systemctl stop nginx
+
+# Start the web server
+% sudo systemctl start nginx
+
+# Stop and start the service again
+% sudo systemctl restart nginx
+
+# If you are only making configuration changes, Nginx can often reload without dropping connections
+% sudo systemctl reload nginx
+
+# If you want to disable Nginx from starting up automatically at boot
+% sudo systemctl disable nginx
+
+# To re-enable the service to automatically start when the system is booted
+% sudo systemctl enable nginx
+```
+
+You have now learned basic management commands and should be ready to configure the site to host more than one domain.
